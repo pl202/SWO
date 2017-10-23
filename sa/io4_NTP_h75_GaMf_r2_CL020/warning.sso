@@ -1,0 +1,9 @@
+SS-V3.24Z-safe;_05/18/2016;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_11.2x64
+Sat Oct  7 22:54:27 2017
+
+ Minimum size bin is:_15; which is >10cm, which is large for use as size-at-age 0.0 recruitment
+ Maximum size at age: 305.288; is within 5% of the largest size bin: 252; Add more bins
+Final gradient: 0.000119728 is larger than final_conv: 0.0001
+ N warnings: 3
+Reminder: Number of lamdas !=0.0 and !=1.0:  15
+Number_of_active_parameters_on_or_near_bounds: 0

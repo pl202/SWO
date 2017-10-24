@@ -48,3 +48,12 @@ outca <- out$catch[, .(catch=sum(Obs)), by=Yr]
 mean(outca$catch / met$Catch)
 
 ggplot(outca, aes(x=Yr, y=catch)) + geom_line()
+
+
+
+#
+library(r4ss)
+
+dats <- r4ss::SS_readdat("io4_NTP_h75_GaMf_r2_CL020/DATA.SS", verbose=FALSE)
+ctls <- r4ss::SS_readctl_3.24(file="io4_NTP_h75_GaMf_r2_CL020/CONTROL.SS",
+  use_datlist=T, datlist=dats, verbose=FALSE)

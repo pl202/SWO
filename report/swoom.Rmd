@@ -1,0 +1,106 @@
+---
+title: 
+author: Rui Coelho, Daniela Rosa, Iago Mosqueira.
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+tags:
+abstract:
+license: Creative Commons Attribution-ShareAlike 4.0 International Public License
+---
+
+```{r, knitr, echo=FALSE, message=FALSE}
+library(knitr)
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE,
+  fig.width=5, fig.height=3, fig.pos='H')
+```
+
+# Structural uncertainty grid
+
+## Selectivity of the CPUE fleets
+
+- Double Normal
+- Logistic
+
+## Steepness
+
+`0.2 1 0.75 0.75 1 0.1 -10 # SR_steep`
+
+- h=0.6
+- h=0.75
+
+## Growth + maturity
+
+### Slow growth, late maturity (GtMF)
+
+- Maturity
+
+`0 0 0 0 0.02 0.1 0.5 0.9 0.98 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 # TWN/Hawai'i Maturity 50% age 4`
+
+- Growth
+
+`70 90 66.2     66.2 0 0.1 -2 0 0 0 0 0.5 0 0   # Wang IO L_at_Amin_Fem_GP_1`
+`310 340 274.9 274.9 0 0.1 -2 0 0 0 0 0.5 0 0   # Wang IO L_at_Amax_Fem_GP_1`
+`0.05 0.26 0.138 0.138 0 0.1 -3 0 0 0 0 0.5 0 0 # Wang IO VonBert_K_Fem_GP_1`
+
+### Fast growth, early maturity
+
+- Maturity
+
+`0.001 0.006 0.027 0.109 0.354 0.711 0.917 0.98 0.996 0.999   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  # Farley 2016 Ootlith
+
+- Growth
+
+`70 90 78.70 78.70   0 0.1 -2 0 0 0 0 0 0 0 # Farley Otolith L_at_Amin_Fem_GP_1_`
+`310 340 275.8123 275.8123 0 0.1 -2 0 0 0 0 0 0 0 # Farley Otolith Ray L_at_Amax_Fem_GP_1_`
+`0.05 0.2 0.157 0.157 0 0.1 -3 0 0 0 0 0 0 0 # Farley Otolith Ray VonBert_K_Fem_GP_1_`
+
+## Natural mortality
+
+- Low, 0.2
+- High, 0.4
+
+- Test: Lorenzen M
+
+Lorenzen M for FEMALES (age 0 to 30)
+0.5660322	0.4382228	0.368445	0.3248203	0.295235	0.2740602	0.2583189	0.2462855	0.23689	0.2294327	0.2234366	0.2185649	0.2145735	0.2112806	0.2085487	0.2062716	0.204366	0.2027662	0.2014195	0.2002831	0.1993224	0.1985089	0.1978191	0.1972334	0.1967357	0.1963124	0.1959521	0.1956453	0.1953838	0.1951609	0.1949708
+
+Lorenzen M for MALES (age 0 to 30)
+0.4588258	0.3631227	0.3124604	0.2817323	0.2615569	0.2476183	0.2376487	0.2303405	0.2248866	0.220762	0.2176113	0.2151861	0.2133084	0.2118481	0.2107082	0.2098161	0.2091164	0.2085667	0.2081342	0.2077936	0.2075252	0.2073135	0.2071465	0.2070146	0.2069105	0.2068282	0.2067633	0.2067119	0.2066714	0.2066393	0.206614
+
+
+
+
+## ESS
+
+- 2
+- 20
+
+## CPUE scaling schemes
+
+- area effect * surface
+- Catch
+- Biomass
+ 
+## CPUEs
+
+- JAP late + PT
+- JAP late
+- TWN + PT
+
+## Yearly catchability increase
+
+- 0% / year 
+- 1% /year
+
+## SigmaR
+
+`0 2 0.2 0.2 -1 0.8 -3 # SR_sigmaR`
+
+- 0.2
+- 0.4/0.6
+
+# References

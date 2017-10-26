@@ -1,6 +1,6 @@
 ---
-title: 
-author: Rui Coelho, Daniela Rosa, Iago Mosqueira.
+title: Update on the conditioning of an operating model for the Indian Ocean swordfish
+author: Iago Mosqueira, Daniela Rosa, Dan Fu, Rui Coelho.
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   pdf_document:
@@ -25,6 +25,11 @@ The Indian Ocean Tuna Commission (IOTC) has committed to a path of using Managem
 
 ## SWO assessment
 
+According to the results of the last stock assessment, shown in Figure 1 the biomass of SWO XXXXX 
+
+OLD from ALB
+has been slowly declining as catches increased over the 1950-2000 period, having probably fallen below the BMSY target at some point in the past. The stock then recovered, as a result of a decrease in catches after 2001, and is now considered to be around the target level of B = BMSY
+
 
 
 # Structural uncertainty grid
@@ -47,9 +52,9 @@ Two distributions were considered for the fleets selectivity:
 ## Steepness
 Steepness (h) from Beverton and Holt stock-recruitment function is often a very influential parameter which is difficult to estimate or caractherize in most stock assessments. The base case SA models used 0.75, and the other options (0.6 and 0.9) reflect plausible uncertainty with lower and higher values. Three values for steepness were used:
 
-* 0.6,
-* 0.75,
-* 0.9.
+* 0.6
+* 0.75
+* 0.9
 
 
 ## Growth & Maturity
@@ -58,181 +63,79 @@ Growth and maturity are very important parameters in stock assessments. Swordfis
 * slow growth/late maturity  (Wang et al., 2010)
 * fast growth/early maturity (Farley et al., 2016 - otoliths)
 
-The Fig below represents the options used for growth - ADD FIG WITH growth Curves 
-The Fig below represents the options used for maturity - ADD FIG WITH maturity Curves 
+The Figs XXX and XXX below represent the options used for growth and maturity curves
+
+![Age-at-maturity options forconditioning the SWO OM](figures/Maturity.png)
 
 
 ## Natural Mortality M)
 Natural mortality is a common unknown in most stock assessment models. The base case considered in the stock assessment model was 0.2 constant for all ages, which was supplemented with an alternative value of 0.4 also constant for all ages as suggested by the WPM. Additionally, after some additionaly considerations on the use of fixed versus age-specific M, the authors also decided to add a 3rd possibility using age-specific M values, based on the the Lorenzen equation. A total of 3 possibilities were therefore considered for M in this preliminary model grids:
 
-* 0.2, constant for all ages;
-* 0.4, constant for all ages;
-* Age-specific values based on the Lorenzen equation.
+* 0.2, constant for all ages
+* 0.4, constant for all ages
+* Age and sex specific values based on the Lorenzen equation
 
 The Fig XXX below represents the options used for M  
 
-```{r echo=FALSE, results='hide'}
-library(reshape)
-library(ggplot2)
-Low <- rep(0.2, 31)
-High <- rep(0.4, 31)
-Lorenzen.F <- c(0.5660322,	0.4382228,	0.368445,	0.3248203,	0.295235,	0.2740602,	0.2583189,	0.2462855,	0.23689,
-                0.2294327,	0.2234366,	0.2185649,	0.2145735,	0.2112806,	0.2085487,	0.2062716,	0.204366,	0.2027662,
-                0.2014195,	0.2002831,	0.1993224,	0.1985089,	0.1978191,	0.1972334,	0.1967357,	0.1963124,	0.1959521,
-                0.1956453,	0.1953838,	0.1951609,	0.1949708)
-Lorenzen.M <- c(0.4588258,	0.3631227,	0.3124604,	0.2817323,	0.2615569,	0.2476183,	0.2376487,	0.2303405,	0.2248866,
-                0.220762,	0.2176113,	0.2151861,	0.2133084,0.2118481,	0.2107082,	0.2098161,	0.2091164,	0.2085667,
-                0.2081342,	0.2077936,	0.2075252,	0.2073135,	0.2071465,	0.2070146,	0.2069105,	0.2068282,	0.2067633,
-                0.2067119,	0.2066714,	0.2066393,	0.206614)
-M.schedules.data <- data.frame(Low=Low, High=High, Lorenzen.F=Lorenzen.F, Lorenzen.M=Lorenzen.M)
-M.schedules.data.melt <- melt(M.schedules.data)
-M.schedules.data.melt$Age <- seq(0,30) # Add ages vector
-summary(M.schedules.data.melt)
-M.schedules.plot <-ggplot(data=M.schedules.data.melt)+
-  geom_line(aes(x=Age, y=value, group=variable, color=variable), size=1)+
-  geom_point(aes(x=Age, y=value, group=variable, color=variable), size=2)+
-  labs(title = "Natural Mortality", x = "Age", y = "M")+
-  guides(color=guide_legend("M option"))+ 
-  theme_bw()
-```
-
-```{r fig.width=8, fig.height=5}
-print(M.schedules.plot)
-```
-
-## Efective Sampling Size of each length data point (ESS)
-Two values were used for the relative weight of length sampling data in the total likelihood, through changes in the efective sampling size parameter, of 2 and 20. This alters the relative weighting of length samples and CPUE series in informing the model about stock dynamics and the efects of fishing at length.
+![Natural Mortality options for conditioning the SWO OM](figures/Natural-Mortality.png)
 
 
-## CPUEs
+## Efective Sampling Size (ESS)
+Two values were used for the relative weight of length sampling data in the total likelihood, through changes in the efective sampling size parameter, of 2 and 20. This alters the relative weighting of length samples and CPUE series in informing the model about stock dynamics and the efects of fishing at length. The values of ESS used in the model grid were therefore:
+
+* 2
+* 20
+
+
+## CPUE series
 CPUE series presented to the WPB showed conflicting trends, the base case considered in the assessment used the Japanese late (1994-2015) CPUE with Portuguese indices from 2000-2015 being used in the Southwest. A total of 3 possibilities are considered for CPUE in this preliminary model grid, based on suggestions from the WPM:
 
-*JPNlate+EU.PRT: Japanese CPUE (1994-2015) but indices 2000-2015 in Southwest are replaced by Portuguese indices,
-*JPNlate: Japanese CPUE (1994-2015),
-*TWN+EU.PRT: Taiwanese CPUE (1994-2015) but indices 2000-2015 in Southwest are replaced by Portuguese indices.
+* JPNlate+EU.PRT: Japanese CPUE (1994-2015) with indices 2000-2015 in the SW replaced by Portuguese index,
+* JPNlate: Japanese CPUE (1994-2015),
+* TWN+EU.PRT: Taiwanese CPUE (1994-2015) with indices 2000-2015 in the SW replaced by Portuguese index.
+
+The Fig XXX below represents the options used for CPUE indexes  
+
+![CPUE series options for conditioning the SWO OM](figures/CPUEs.png)
 
 
-## CPUE scaling schemes
+## CPUE scaling
+The conducted stock assessment considered a stock with four areas. Possible alternatives considered for scaling the CPUES were considered, noting that some options were already explored by the WPB during the stock assessment session and recomended by the WPM:
 
+* area effect * surface
+* Catch
+* Biomass
 
 
 ## Catchability increase
-Two scenarios were considered for the efective catchability of the CPUE fleet. On the first one it was assumed that the fleet had not improved its ability to fish for swordfish over time, or that any increase had been captured by the CPUE standardization process (0% increase). An alternative scenario considered a 1%/year increase in catchability by correcting the CPUE index to reflect this.
+Two scenarios were considered for the efective catchability of the CPUE fleet. On the first one it was assumed that the fleets have not improved their ability to fish for swordfish over time, or that any increase had been captured by the CPUE standardization process (0% increase). An alternative scenario considered a 1%/year increase in catchability by correcting the CPUE index to reflect this. The catchbility increase options considered therefore were:
+
+* 0%
+* 1%/year
+
 
 ## SigmaR
-Two values were considered for the true variability of recruitment in the population (sigmaR), specifically 0.2 and 0.6, as set by the variable SR_sigmaR in the control file.
+Two values were considered for the true variability of recruitment in the population (sigmaR), specifically 0.2 and 0.6, as set by the variable SR_sigmaR in the control file. The WPM discussed that both lower and higher options should be considered, but that a further middle value could also be added in the future (0.4). At this preliminary stage, and in order to not increase too much the grid of model runs, only the two extremes were considered for recruitment variability:
 
+* SigmaR = 0.2
+* SigmaR = 0.6
 
-Table XX below summarizes the grid of uncertanties considerred for the conditioning of the OM. This initial grid results in a total of XXXX models. 
+## Summary of the OM grid of uncertanties
+Table XX below summarizes the grid of uncertanties considered for the conditioning of the OM. This initial grid results in a total of XXXX models. 
   
   
-| Variable              | Values                                         |                                                             |                                                                   |
+| Variable                  | Values                                         |                                                             |                                                                   |
 |-----------------------|------------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------------|
-| Selectivity           | Double Normal                                  | Logistic                                                    |                                                                   |
-| Steepness             | 0.6                                            | 0.75                                                        | 0.9                                                               |
-| Growth + Maturity     | Slow growth, late maturity (Wang et al., 2010) | Fast growth, early maturity(Farley et al., 2016 - otoliths) |                                                                   |
-| M                     | Low = 0.2                                      | High = 0.4                                                  | Sex-specific Lorenzen M(based on Farley et al. (2016) - otoliths) |
-| ESS                   | 2                                              | 20                                                          |                                                                   |
-| CPUE scaling schemes  | Area effect*Surface                            | Catch                                                       | Biomass                                                           |
-| CPUEs                 | JPN late + EU.PRT                                  | JPN late                                                    | TWN + EU.PRT                                                          |
-| Catchability increase | 0%                                             | 1% / year                                                   |                                                                   |
-| SigmaR                | 0.2                                            | 0.6                                                         |                                                                   |
+| Selectivity               | Double Normal                                  | Logistic                                                    |                                                                   |
+| Steepness                 | 0.6                                            | 0.75                                                        | 0.9                                                               |
+| Growth + Maturity         | Slow growth, late maturity (Wang et al., 2010) | Fast growth, early maturity(Farley et al., 2016 - otoliths) |                                                                   |
+| M                         | Low = 0.2                                      | High = 0.4                                                  | Sex-specific Lorenzen M(based on Farley et al. (2016) - otoliths) |
+| ESS                       | 2                                              | 20                                                          |                                                                   |
+| CPUE scaling schemes      | Area effect*Surface                            | Catch                                                       | Biomass                                                           |
+| CPUEs                     | JPN late + EU.PRT                                  | JPN late                                                    | TWN + EU.PRT                                                          |
+| Catchability increase     | 0%                                             | 1% / year                                                   |                                                                   |
+| SigmaR                    | 0.2                                            | 0.6                                                         |                                                                   |
   
-
-According to the results of the last stock assessment, shown in Figure 1 the biomass of SWO XXXXX 
-
-
-
-OLD from ALB
-has been slowly declining as catches increased over the 1950-2000 period, having probably fallen below the BMSY target at some point in the past. The stock then recovered, as a result of a decrease in catches after 2001, and is now considered to be around the target level of B = BMSY
-
-
-
-
-
-## Selectivity of the CPUE fleets
-
-
-## Steepness
-
-`0.2 1 0.75 0.75 1 0.1 -10 # SR_steep`
-
-- h=0.6
-- h=0.75
-- h=0.9
-
-## Growth + maturity
-
-### Slow growth, late maturity (GtMF)
-
-- Maturity
-
-`0 0 0 0 0.02 0.1 0.5 0.9 0.98 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 # TWN/Hawai'i Maturity 50% age 4`
-
-- Growth
-
-`70 90 66.2     66.2 0 0.1 -2 0 0 0 0 0.5 0 0   # Wang IO L_at_Amin_Fem_GP_1`
-`310 340 274.9 274.9 0 0.1 -2 0 0 0 0 0.5 0 0   # Wang IO L_at_Amax_Fem_GP_1`
-`0.05 0.26 0.138 0.138 0 0.1 -3 0 0 0 0 0.5 0 0 # Wang IO VonBert_K_Fem_GP_1`
-
-### Fast growth, early maturity
-
-- Maturity
-
-`0.001 0.006 0.027 0.109 0.354 0.711 0.917 0.98 0.996 0.999   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  # Farley 2016 Ootlith
-
-- Growth
-
-`70 90 78.70 78.70   0 0.1 -2 0 0 0 0 0 0 0 # Farley Otolith L_at_Amin_Fem_GP_1_`
-`310 340 275.8123 275.8123 0 0.1 -2 0 0 0 0 0 0 0 # Farley Otolith Ray L_at_Amax_Fem_GP_1_`
-`0.05 0.2 0.157 0.157 0 0.1 -3 0 0 0 0 0 0 0 # Farley Otolith Ray VonBert_K_Fem_GP_1_`
-
-## Natural mortality
-
-
-
-- Low, 0.2
-- High, 0.4
-
-- Test: Lorenzen M
-
-Lorenzen M for FEMALES (age 0 to 30)
-0.5660322	0.4382228	0.368445	0.3248203	0.295235	0.2740602	0.2583189	0.2462855	0.23689	0.2294327	0.2234366	0.2185649	0.2145735	0.2112806	0.2085487	0.2062716	0.204366	0.2027662	0.2014195	0.2002831	0.1993224	0.1985089	0.1978191	0.1972334	0.1967357	0.1963124	0.1959521	0.1956453	0.1953838	0.1951609	0.1949708
-
-Lorenzen M for MALES (age 0 to 30)
-0.4588258	0.3631227	0.3124604	0.2817323	0.2615569	0.2476183	0.2376487	0.2303405	0.2248866	0.220762	0.2176113	0.2151861	0.2133084	0.2118481	0.2107082	0.2098161	0.2091164	0.2085667	0.2081342	0.2077936	0.2075252	0.2073135	0.2071465	0.2070146	0.2069105	0.2068282	0.2067633	0.2067119	0.2066714	0.2066393	0.206614
-
-
-
-
-## ESS
-
-- 2
-- 20
-
-## CPUE scaling schemes
-
-- area effect * surface
-- Catch
-- Biomass
- 
-## CPUEs
-
-- JAP late + PT
-- JAP late
-- TWN + PT
-
-## Yearly catchability increase
-
-- 0% / year 
-- 1% /year
-
-## SigmaR
-
-`0 2 0.2 0.2 -1 0.8 -3 # SR_sigmaR`
-
-- 0.2
-- 0.4/0.6
 
 
 

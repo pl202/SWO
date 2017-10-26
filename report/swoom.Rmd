@@ -24,17 +24,16 @@ opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE,
 The Indian Ocean Tuna Commission (IOTC) has committed to a path of using Management Strategy Evaluation (MSE) to meet its obligations for adopting the precautionary approach. IOTC Resolution 12/01 "On the implementation of the precautionary approach" identifies the need for fishery reference points and harvest strategies to help maintain stocks at levels consistent with the reference points. Resolution 15/10, that superseded Resolution 13/10, provided a renewed mandate for the Scientific Committee to evaluate the performance of harvest control rules with respect to the species-specific interim target and limit reference points, no later than 10 years following the adoption of the reference points, for consideration of the Commission and their eventual adoption. A species-specific workplan was re-affirmed at the 2017 Commission Meeting, outlining the steps required to adopt simulation-tested Management Procedures for the highest priority species (included in Attachment 1). Recognizing the iterative nature of the MSE process, the workplan identifies 2019 as the earliest probable date for MP adoption.
 
 ## SWO assessment
-A new swordfish stock assessment was undertaken in 2017 using stock synthesis (SS3) with fisheries data up to 2015. The assessment used a spatially disaggregated, sex explicit and age structured model. The model indicated that MSY-based reference points for the last years were not exceeded for the Indian Ocean population as a whole (F2015/FMSY<1 & SB2015/SBMSY>1). Spawning stock biomass in 2015 was estimated to be 26-43% of the unfished levels. Biomass started declining mainly since the early 1990's as catches increased in that period, and have been declining more slowly since then, as F levels have also been reduced (Figure \ref{fig:sa-results}). 
 
-<!---
-![Yearly time series of recruitment, SSB, catch and fishing mortality estimated by the WPB for the stock assessment of the Indian Ocean swordfish in 2017.\label{fig:sa-results}](figures/XXX.png)
--->
+According to the results of the last stock assessment, shown in Figure 1 the biomass of SWO XXXXX 
 
-ADD FIGURE WITH 2017 SA RESULTS
+OLD from ALB
+has been slowly declining as catches increased over the 1950-2000 period, having probably fallen below the BMSY target at some point in the past. The stock then recovered, as a result of a decrease in catches after 2001, and is now considered to be around the target level of B = BMSY
+
 
 
 # Structural uncertainty grid
-The initial strategy to follow for the development of the SWO MSE platform were discussed by the WPM in 2017 (IOTC 2017a). It was agreed to use the stock assessment carried out and reviewed by the WPB in 2017 (IOTC 2017b) based on SS3 - Stock Synthesis 3.24 (Methot and Wetzel 2013), as a basis for the population and fishery model to build the OM for this stock. Uncertainties concerning structural elements of the model formulation were considered to be the primary factor of concern.
+The initial strategy to follow for the development of the SWO MSE platform were discussed by the WPM in 2017 (IOTC 2017a). It was agreed to use the stock assessment carried out and reviewed by the WPB in 2017 (IOTC 2017b) based on SS3 - Stock Synthesis 3.24z - CHECK VERSION (Methot and Wetzel 2013), as a basis for the population and fishery model to build the OM for this stock. Uncertainties concerning structural elements of the model formulation were considered to be the primary factor of concern.
 
 The WPM proposed an initial grid of options for characterizing the structure of the uncertainty grid for generating the OM, based on a set of SS3 model runs (IOTC 2017a). During the 1st workshop meeting of the authors to start the conditioning of the OM, those were discussed. The decision was to construct a grid of model runs built around those suggested by the WPB on feasible, or at least not too extreme, values for a number of assumptions and fixed parameters in the population model. The impact of some of these elements in the model were already explored in some detail by the researchers carrying out past stock assessments (Fu, 2017).
 
@@ -64,11 +63,9 @@ Growth and maturity are very important parameters in stock assessments. Swordfis
 * slow growth/late maturity  (Wang et al., 2010)
 * fast growth/early maturity (Farley et al., 2016 - otoliths)
 
-The Figures \ref{fig:maturity} and \ref{fig:Growth} below represent the options used for maturity and growth curves.
+The Figs XXX and XXX below represent the options used for growth and maturity curves
 
-![Age-at-maturity options for conditioning the SWO OM\label{fig:maturity}](figures/Maturity.png)
-
-![Growth options for conditioning the SWO OM\label{fig:Growth}](figures/Growth.png)
+![Age-at-maturity options forconditioning the SWO OM](figures/Maturity.png)
 
 
 ## Natural Mortality M)
@@ -78,9 +75,9 @@ Natural mortality is a common unknown in most stock assessment models. The base 
 * 0.4, constant for all ages
 * Age and sex specific values based on the Lorenzen equation
 
-The Figure \ref{fig:mortality} below represents the options used for M  
+The Fig XXX below represents the options used for M  
 
-![Natural Mortality options for conditioning the SWO OM\label{fig:mortality}](figures/Natural-Mortality.png)
+![Natural Mortality options for conditioning the SWO OM](figures/Natural-Mortality.png)
 
 
 ## Efective Sampling Size (ESS)
@@ -97,9 +94,9 @@ CPUE series presented to the WPB showed conflicting trends, the base case consid
 * JPNlate: Japanese CPUE (1994-2015),
 * TWN+EU.PRT: Taiwanese CPUE (1994-2015) with indices 2000-2015 in the SW replaced by Portuguese index.
 
-The Figure \ref{fig:cpues} below represents the options used for CPUE indexes  
+The Fig XXX below represents the options used for CPUE indexes  
 
-![CPUE series options for conditioning the SWO OM\label{fig:cpues}](figures/CPUEs_v2.png)
+![CPUE series options for conditioning the SWO OM](figures/CPUEs.png)
 
 
 ## CPUE scaling
@@ -140,18 +137,7 @@ Table XX below summarizes the grid of uncertanties considered for the conditioni
 | SigmaR                    | 0.2                                            | 0.6                                                         |                                                                   |
   
 
-# Software Implementation
 
-The work presented here has been carried out using two main tools: the SS3 stock assessment platform (Methot and Wetzel 2013) for OM conditioning, and the FLR libraries (Kell et al. (2007), http://flr-project.org) for data input of OM model runs, assemblage of the base case OM, implementation and evaluation of the MPs, computational workload, and model output and summaries.
-
-The grid of model runs was constructed by altering for each factor combination the SS3 input files. Manipulation of these files was facilitated by the use of the r4ss R package. The setgrid function in the ioswomse package is responsible for carrying out the alterations for each element in grid as necessary. A generic R package, ss3om, has also been developed to load the results of the SS3 runs into FLR.
-
-
-# Discussion
-
-
-
-# Next steps
 
 
 # References

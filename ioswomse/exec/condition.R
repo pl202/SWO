@@ -9,15 +9,17 @@
 library(ioswomse)
 
 library(doParallel)
-registerDoParallel(3)
+registerDoParallel(6)
 
 # --- SCENARIOS
 
 scenarios <- list(
+  # Natural mortality, M
   M=c(0.2, 0.4),
-  steepness=c(0.6, 0.75),
-  sigmaR=c(0.2, 0.,6),
-  ess=c(2,20),
+  # SR steepness
+  steepness=c(0.6, 0.75, 0.9),
+  sigmaR=c(0.2, 0.6),
+  ess=c(2, 20),
   llq=c(1, 1.01),
   growmat=c("farley", "wang"),
   cpue=c("jappt", "jap", "twnpt"))
@@ -32,28 +34,28 @@ dir <- "test"
 
 grid <- setioswogrid(scenarios, cpues=cpues, dir=dir, write=TRUE)
 
-save(grid, file=paste0(dir, "/grid.RData"))
+dirs <- paste(dir, grid$id, sep="/")
 
 # -- RUN SS3 grid
 
-rungrid(grid, options="", dir=dir)
+runss3grid(grid, options="", dir=dir)
 
 # -- LOAD results
 
 # res
-res <- cbind(grid[,-9], loadres(dirs=grid$id))
+res <- cbind(grid[,-9], loadres(dirs=dirs))
 
 # rpts: MSY, SB_MSY, F_MSY, SB0
 rpts <- FLPar(MSY=res$TotYield_MSY, SBMSY=2 * res$SSB_MSY, FMSY=res$Fstd_MSY,
   SB0=2 * res$SPB_1950, Ftarget=res$Fstd_MSY, SBlim=2 * 0.40*res$SSB_MSY)
 
 # om
-om <- loadom(dirs=grid$id)
+om <- loadom(dirs=dirs)
 
-range(om, c("minfbar", "maxfbar")) <- c(5,12)
+range(om, c("minfbar", "maxfbar")) <- c(2,8)
 
 # sr (residuals)
-resid <- loadrec(grid$id)[['resid']]
+resid <- loadrec(paste(dir, grid$id, sep="/"))[['resid']]
 
 osr <- list(model='bevholtss3',
   params=FLPar(a=res$steepness, b=exp(res$`SR_LN(R0)`), c=res$SPB_1950,

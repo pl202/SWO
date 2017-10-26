@@ -1,7 +1,7 @@
 
 # ioalbmse
 
-Management Strategy Evaluation for the Indian Ocean Tuna Commission Albacore Tuna Stock
+Management Strategy Evaluation for the Indian Ocean Tuna Commission Swordfish Stock
 
 # PACKAGE MAP
 .

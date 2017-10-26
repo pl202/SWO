@@ -5,7 +5,7 @@
 \title{Sets a grid of SS3 runs for the IOTC SWO OM}
 \usage{
 setioswogrid(scenarios, cpues, dir = paste0("grid_", format(Sys.time(),
-  "\%Y\%m\%d")), base = system.file("ext-data/sa", package = "iotcswomse"),
+  "\%Y\%m\%d")), base = system.file("ext-data/sa", package = "ioswomse"),
   name = "swo", from = 1, write = TRUE)
 }
 \description{

@@ -16,8 +16,10 @@
 #' write <- TRUE
 #'
 # setioswogrid {{{
-setioswogrid <- function(scenarios, cpues, dir=paste0("grid_", format(Sys.time(), "%Y%m%d")),
-  base=system.file("ext-data/sa", package="iotcswomse"), name='swo', from=1, write=TRUE) {
+setioswogrid <- function(scenarios, cpues,
+  dir=paste0("grid_", format(Sys.time(), "%Y%m%d")),
+  base=system.file("ext-data/sa", package="ioswomse"), name='swo', from=1,
+  write=TRUE) {
 	
   # EXPAND grid from sce
 	grid <- nameGrid(expand.grid(scenarios, stringsAsFactors=FALSE), from=from)
@@ -68,7 +70,7 @@ setioswogrid <- function(scenarios, cpues, dir=paste0("grid_", format(Sys.time()
     # M
     if("M" %in% pars) {
       if(ctl$natM_type == 0) {
-        ctl$MG_parms[1,"INIT"] <- grid[row, "M"]
+        ctl$MG_parms[1, c("INIT", "PRIOR")] <- grid[row, "M"]
       }
     }
 
@@ -122,7 +124,7 @@ setioswogrid <- function(scenarios, cpues, dir=paste0("grid_", format(Sys.time()
 
     # JAP late
       else if(grid[row, "cpue"] == "jap") {
-        dat$CPUE <- cpues
+        dat$CPUE <- cpues[, 1:5]
         # SET lambdas$value = 0.001 for all but c(13:16)
         ctl$lambdas[, "value"] <- 0.001
         ctl$lambdas[ctl$lambdas[,"fleet/survey"] %in% c(13:16), "value"] <- 1.000

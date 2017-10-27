@@ -60,7 +60,7 @@ Two distributions were considered for the fleets selectivity:
 
 
 ## Steepness
-Steepness (h) from Beverton and Holt stock-recruitment function is often a very influential parameter which is difficult to estimate or caractherize in most stock assessments. The base case SA models used 0.75, and the other options (0.6 and 0.9) reflect plausible uncertainty with lower and higher values. Three values for steepness were used:
+Steepness (h) from Beverton and Holt stock-recruitment function is often a very influential parameter which is difficult to estimate or characterize in most stock assessments. The base case SA models used 0.75, and the other options (0.6 and 0.9) reflect plausible uncertainty with lower and higher values. Three values for steepness were used:
 
 * 0.6
 * 0.75
@@ -81,7 +81,7 @@ The Figures \ref{fig:Maturity} and \ref{fig:Growth}. below represent the options
 
 
 ## Natural Mortality M)
-Natural mortality is a common unknown in most stock assessment models. The base case considered in the stock assessment model was 0.2 constant for all ages, which was supplemented with an alternative value of 0.4 also constant for all ages as suggested by the WPM. Additionally, after some additionaly considerations on the use of fixed versus age-specific M, the authors also decided to add a 3rd possibility using age-specific M values, based on the the Lorenzen equation. A total of 3 possibilities were therefore considered for M in this preliminary model grids:
+Natural mortality is a common unknown in most stock assessment models. The base case considered in the stock assessment model was 0.2 constant for all ages, which was supplemented with an alternative value of 0.4 also constant for all ages as suggested by the WPM. Additionally, after some additional considerations on the use of fixed versus age-specific M, the authors also decided to add a 3rd possibility using age-specific M values, based on the the Lorenzen equation. A total of 3 possibilities were therefore considered for M in this preliminary model grids:
 
 * 0.2, constant for all ages
 * 0.4, constant for all ages
@@ -93,7 +93,7 @@ The Figure \ref{fig:Mortality} below represents the options used for M
 
 
 ## Efective Sampling Size (ESS)
-Two values were used for the relative weight of length sampling data in the total likelihood, through changes in the efective sampling size parameter, of 2 and 20. This alters the relative weighting of length samples and CPUE series in informing the model about stock dynamics and the efects of fishing at length. The values of ESS used in the model grid were therefore:
+Two values were used for the relative weight of length sampling data in the total likelihood, through changes in the efective sampling size parameter, of 2 and 20. This alters the relative weighting of length samples and CPUE series in informing the model about stock dynamics and the effects of fishing at length. The values of ESS used in the model grid were therefore:
 
 * 2
 * 20
@@ -112,7 +112,7 @@ The Figure \ref{fig:CPUEs} below represents the options used for CPUE indexes
 
 
 ## CPUE scaling
-The conducted stock assessment considered a stock with four areas. Possible alternatives considered for scaling the CPUES were considered, noting that some options were already explored by the WPB during the stock assessment session and recomended by the WPM:
+The conducted stock assessment considered a stock with four areas. Possible alternatives considered for scaling the CPUES were considered, noting that some options were already explored by the WPB during the stock assessment session and recommended by the WPM:
 
 * area effect * surface
 * Catch
@@ -133,28 +133,29 @@ Two values were considered for the true variability of recruitment in the popula
 * SigmaR = 0.6
 
 ## Summary of the OM grid of uncertanties
-Table \ref{table:grid} below summarizes the grid of uncertanties considered for the conditioning of the OM. This initial grid results in a total of XXXX models. 
+Table \ref{tab:grid} below summarizes the grid of uncertainties considered for the conditioning of the OM. This initial grid results in a total of XXXX models. 
 
-Table: Grid of uncertainties used for cinditioning the swordfish OM, based on the recomendations from the 2017 WPM \label{table:grid}
-
-| Variable                  | Values                                         |                                                             |                                                                   |
-|-----------------------|------------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------------|
-| Selectivity               | Double Normal                                  | Logistic                                                    |                                                                   |
-| Steepness                 | 0.6                                            | 0.75                                                        | 0.9                                                               |
-| Growth + Maturity         | Slow growth, late maturity (Wang et al., 2010) | Fast growth, early maturity(Farley et al., 2016 - otoliths) |                                                                   |
-| M                         | Low = 0.2                                      | High = 0.4                                                  | Sex-specific Lorenzen M(based on Farley et al. (2016) - otoliths) |
-| ESS                       | 2                                              | 20                                                          |                                                                   |
-| CPUE scaling schemes      | Area effect*Surface                            | Catch                                                       | Biomass                                                           |
-| CPUEs                     | JPN late + EU.PRT                                  | JPN late                                                    | TWN + EU.PRT                                                          |
-| Catchability increase     | 0%                                             | 1% / year                                                   |                                                                   |
-| SigmaR                    | 0.2                                            | 0.6                                                         |                                                                   |
+```{r grid, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+library(kableExtra)
+library(knitr)
+table_grid <-read.table("scripts/SWO-MSE-Uncertainty-grid.csv", header=T,sep=";")
+table_grid <- table_grid[,1:4]
+colnames(table_grid) <- c("Variables","Values","","")
+kable(table_grid, "latex", booktabs=T, caption="Grid of uncertainties used for cinditioning the swordfish OM, based on the recomendations from the 2017 WPM") %>%
+    kable_styling(full_width = F) %>%
+  column_spec(1, width = "8em") %>%
+  column_spec(2, width = "12em") %>%
+  column_spec(3, width = "13em") %>%
+  column_spec(4, width = "10em") %>%
+  row_spec(0, bold = T)
+```
 
 
 # Software Implementation
 
-The work presented here has been carried out using two main tools: the SS3 stock assessment platform (Methot and Wetzel 2013) for OM conditioning, and the FLR libraries (Kell et al. (2007), http://flr-project.org) for data input of OM model runs, assemblage of the base case OM, implementation and evaluation of the MPs, computational workload, and model output and summaries. The grid of model runs was constructed by altering for each factor combination the SS3 input files. Manipulation of these files was facilitated by the use of the r4ss R package. The setgrid function in the ioswomse package is responsible for carrying out the alterations for each element in grid as necessary. A generic R package, ss3om, has also been developed to load the results of the SS3 runs into FLR. Figure \ref{fig:workflow} below represents the workflow and packadges used in this project
+The work presented here has been carried out using two main tools: the SS3 stock assessment platform (Methot and Wetzel 2013) for OM conditioning, and the FLR libraries (Kell et al. (2007), http://flr-project.org) for data input of OM model runs, assemblage of the base case OM, implementation and evaluation of the MPs, computational workload, and model output and summaries. The grid of model runs was constructed by altering for each factor combination the SS3 input files. Manipulation of these files was facilitated by the use of the r4ss R package. The setgrid function in the ioswomse package is responsible for carrying out the alterations for each element in grid as necessary. A generic R package, ss3om, has also been developed to load the results of the SS3 runs into FLR. Figure \ref{fig:workflow} below represents the workflow and packages used in this project
 
-![Workflow and connections between the packages used in the SWO MSE work \label{fig:workflow}](figures/ioswomse.png)
+![Workflow and connections between the data, functions and packages used in the SWO MSE work \label{fig:workflow}](figures/ioswomse.png)
 
 
 

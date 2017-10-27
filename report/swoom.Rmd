@@ -244,7 +244,7 @@ Two values were considered for the true variability of recruitment in the popula
 * SigmaR = 0.6
 
 ## Summary of the OM grid of uncertanties
-Table \ref{tab-grid} summarizes the grid of uncertainties considered for the conditioning of the OM. This initial grid results in a total of XXXX models. 
+Table \ref{tab:tab-grid} summarizes the grid of uncertainties considered for the conditioning of the OM. This initial grid results in a total of XXXX models. 
 
 ```{r tab-grid, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 library(kableExtra)

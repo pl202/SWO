@@ -120,20 +120,27 @@ cpues.scenario3 <- subset(cpues, cpues$name=="UTWLL_NE"|cpues$name=="UTWLL_NW"|
 cpues.scenario3$option <- "CPUE.option3"
 cpues.grid <- rbind(cpues.scenario1, cpues.scenario2, cpues.scenario3)
 
+#extract areas
+library(stringr)
+cpues.grid$area <- str_sub(cpues.grid$name,-2,-1)
+#extract fleets
+cpues.grid$fleet <- str_sub(cpues.grid$name, 1,5)
+
+
 ### sCPUE plots
 plot.cpues <- ggplot(cpues.grid)+
-  geom_line(aes(x=year, y=obs, col=name), size=0.7)+
+  geom_line(aes(x=year, y=obs, col=fleet), size=0.5)+
   labs(y = "Scaled index")+
   ggtitle("CPUE Series") +
   scale_x_continuous(breaks = seq(1990, 2015, by = 5))+
   theme_bw()+
   theme(legend.position="right")+
   guides(color=guide_legend("CPUEs"))+
-  facet_grid(option~.)
-
+  facet_wrap(~option+area, scales="free_y")
+plot.cpues
 
 png(file="CPUEs.png", bg = "white",
-     width = 18, height = 18, units = "cm", res = 300) 
+     width = 24, height = 14, units = "cm", res = 300) 
 print(plot.cpues)
 dev.off()
 

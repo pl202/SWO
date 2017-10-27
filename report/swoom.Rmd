@@ -9,16 +9,27 @@ output:
     toc: yes
 tags:
 abstract:
+header-includes: 
+  - \usepackage{float}
+  - \usepackage{fancyhdr}
+  - \pagestyle{fancy}
+  - \fancyhead{}
+  - \fancyhead[L]{Mosqueira et al. - Swordfish OM}
+  - \fancyhead[R]{IOTC-2017-SC21-XX}
 license: Creative Commons Attribution-ShareAlike 4.0 International Public License
 ---
 
 ```{r, knitr, echo=FALSE, message=FALSE}
 library(knitr)
-opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE,
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE,
   fig.width=5, fig.height=3, fig.pos='H')
 ```
 
 # Introduction
+
+[@WPM2017]
+
+@WPM2017
 
 ## Background
 The Indian Ocean Tuna Commission (IOTC) has committed to a path of using Management Strategy Evaluation (MSE) to meet its obligations for adopting the precautionary approach. IOTC Resolution 12/01 "On the implementation of the precautionary approach" identifies the need for fishery reference points and harvest strategies to help maintain stocks at levels consistent with the reference points. Resolution 15/10, that superseded Resolution 13/10, provided a renewed mandate for the Scientific Committee to evaluate the performance of harvest control rules with respect to the species-specific interim target and limit reference points, no later than 10 years following the adoption of the reference points, for consideration of the Commission and their eventual adoption. A species-specific workplan was re-affirmed at the 2017 Commission Meeting, outlining the steps required to adopt simulation-tested Management Procedures for the highest priority species (included in Attachment 1). Recognizing the iterative nature of the MSE process, the workplan identifies 2019 as the earliest probable date for MP adoption.
@@ -96,7 +107,7 @@ CPUE series presented to the WPB showed conflicting trends, the base case consid
 
 The Fig XXX below represents the options used for CPUE indexes  
 
-![CPUE series options for conditioning the SWO OM](figures/CPUEs.png)
+![CPUE series options for conditioning the SWO OM](figures/CPUEs_V2.png)
 
 
 ## CPUE scaling
@@ -137,11 +148,29 @@ Table XX below summarizes the grid of uncertanties considered for the conditioni
 | SigmaR                    | 0.2                                            | 0.6                                                         |                                                                   |
   
 
+# Software Implementation
 
+# Results
 
+## OM conditioning
+
+## Projections
+
+- FLStock plot
+- Histogram B0
+- Conditional plots B0 ~ parameters
+
+### Constant F=0
+
+### Constant F2015
+
+### Constant catch
+
+# Discussion
+
+## Next steps
 
 # References
-
 
 Fu, 2017 - SS3 SWO assessment
 

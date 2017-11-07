@@ -22,7 +22,8 @@ scenarios <- list(
   ess=c(2, 20),
   llq=c(1, 1.01),
   growmat=c("farley", "wang"),
-  cpue=c("jappt", "jap", "twnpt"))
+  cpue=c("jappt", "jap", "twnpt"),
+  scaling=c("area", "catch", "biomass"))
 
 # --- DATA
 
@@ -57,6 +58,10 @@ range(om, c("minfbar", "maxfbar")) <- c(2,8)
 # sr (residuals)
 resid <- loadrec(paste(dir, grid$id, sep="/"))[['resid']]
 
+predictModel(model=bevholtss3()$model,
+  params=FLPar(s=res$steepness, R0=exp(res$`SR_LN(R0)`), v=res$SPB_1950, iter=dim(res)[1]),
+  FLQuants(residuals=resid[, ac(1975:2012)]))
+  
 osr <- list(model='bevholtss3',
   params=FLPar(a=res$steepness, b=exp(res$`SR_LN(R0)`), c=res$SPB_1950,
   iter=dim(res)[1]), formula=rec ~ (4 * a * b * ssb) / (c * (1 - a) + ssb * (5 * a - 1)),

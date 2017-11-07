@@ -1,14 +1,20 @@
 ---
-title: Update on the conditioning of an operating model for the Indian Ocean swordfish
-author: Iago Mosqueira, Daniela Rosa, Dan Fu, Rui Coelho.
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+title: Update on the conditioning of an operating model for the Indian Ocean swordfish stock
+author:
+  - Iago Mosqueira^[European Commission, DG Joint Research Centre (JRC), Directorate D - Sustainable Resources, Unit D.02 Water and Marine Resources, Via E. Fermi 2749, 21027 Ispra VA, Italy. iago.mosqueira@ec.europa.eu]
+  - Daniela Rosa^[Instituto Português do Mar e da Atmosfera (IPMA), Av. 5 de Outubro, 8700-305 Olhão, Portugal.]
+  - Dan Fu^[Indian Ocean Tuna Commission]
+  - Rui Coelho\textsuperscript{\textdagger}
+subtitle: 21st Session Indian Ocean Tuna Commission Scientific Committee
+date: Mahe, Seychelles, 30 November - 4 December 2017.
 output:
   pdf_document:
     fig_caption: yes
     number_sections: yes
     toc: yes
-tags:
-abstract:
+tags: [IOTC SWO OM MSE]
+abstract: |
+  This document presents the first steps towards the development of an Operating Model for the Indian Ocean swordfish (*Xiphias gladius*) stock. It explores the role of the structural uncertainty in the current stock assessment by means of a grid of SS3 model fits. Each run, carried out using the same input data, has a different combination of assumed parameters and variables. The current grid results in XX alternative population trajectories and productivity estimates. 
 header-includes: 
   - \usepackage{float}
   - \usepackage{fancyhdr}
@@ -32,7 +38,7 @@ opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE,
 @WPM2017
 
 ## Background
-The Indian Ocean Tuna Commission (IOTC) has committed to a path of using Management Strategy Evaluation (MSE) to meet its obligations for adopting the precautionary approach. IOTC Resolution 12/01 "On the implementation of the precautionary approach" identifies the need for fishery reference points and harvest strategies to help maintain stocks at levels consistent with the reference points. Resolution 15/10, that superseded Resolution 13/10, provided a renewed mandate for the Scientific Committee to evaluate the performance of harvest control rules with respect to the species-specific interim target and limit reference points, no later than 10 years following the adoption of the reference points, for consideration of the Commission and their eventual adoption. A species-specific workplan was re-affirmed at the 2017 Commission Meeting, outlining the steps required to adopt simulation-tested Management Procedures for the highest priority species (included in Attachment 1). Recognizing the iterative nature of the MSE process, the workplan identifies 2019 as the earliest probable date for MP adoption.
+The Indian Ocean Tuna Commission (IOTC) has committed to a path of using Management Strategy Evaluation (MSE) to meet its obligations for adopting the precautionary approach. IOTC Resolution 12/01 *On the implementation of the precautionary approach* identifies the need for harvest strategies to help maintain stocks at levels consistent with the agreed reference points. Resolution 15/10, that superseded Resolution 13/10, provided a renewed mandate for the Scientific Committee to evaluate the performance of harvest control rules with respect to the species-specific interim target and limit reference points, no later than 10 years following the adoption of the reference points, for consideration of the Commission and their eventual adoption. A species-specific workplan was adopted at the 2017 IOTC meeting, outlining the steps required to adopt simulation-tested Management Procedures for the highest priority species, among them the Indian Ocean swordfish stock.
 
 ## SWO assessment
 
@@ -107,7 +113,7 @@ CPUE series presented to the WPB showed conflicting trends, the base case consid
 
 The Fig XXX below represents the options used for CPUE indexes  
 
-![CPUE series options for conditioning the SWO OM](figures/CPUEs_V2.png)
+![Adopted options for the CPUE series (by row) for each of thew model areas (by column).](figures/CPUEs_V2.png)
 
 
 ## CPUE scaling

@@ -1,8 +1,8 @@
 Package: ioswomse
 Title: Management Strategy Evaluation for the Indian Ocean Tuna Commission
     Swordfish Stock
-Version: 0.0.1.9000
-Date: 2017-10-25
+Version: 0.0.1.9001
+Date: 2017-11-07
 Authors@R: person("Iago", "Mosqueira", email = "iago.mosqueira@ec.europa.eu",
   role = c("aut", "cre"))
 Description: Inputs and outputs of the work for the development of Management

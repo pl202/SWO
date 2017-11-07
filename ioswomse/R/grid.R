@@ -110,13 +110,31 @@ setioswogrid <- function(scenarios, cpues,
       dat$lencomp$Nsamp <- grid[row, "ess"]
     }
 	
-    # CPUE scaling schemes TODO
+    # CPUE scaling schemes
+    if("scaling" %in% pars) {
+
+      # GET object by name (flaky)
+      cpue <- get(paste0("cpues_", grid[row, "scaling"]))
+
+      # data.table of dat$CPUE
+      # datcpue <- data.table(dat$CPUE)
+
+      # set keys for merge
+      # setkey(datcpue, year, seas, index)
+      # setkey(cpue, year, seas, index)
+
+      # MERGE
+      # datcpue[cpue, obs:=cpue$obs]
+
+      # dat$CPUE <- datcpue
+    }
 
     # CPUEs
     if("cpue" %in% pars) {
     # JAP late + PT in SW
       if(grid[row, "cpue"] == "jappt") {
-        dat$CPUE <- subset(cpues , name != "UJPLL_SW" | year < 2000)[, 1:5]
+        # 15 - UJPLL_SW
+        dat$CPUE <- subset(cpue , index != 15 | year < 2000)[, 1:5]
         # SET lambdas$value = 0.001 for all but c(13:16,21)
         ctl$lambdas[, "value"] <- 0.001
         ctl$lambdas[ctl$lambdas[,"fleet/survey"] %in% c(13:16,21), "value"] <- 1.000
@@ -124,7 +142,7 @@ setioswogrid <- function(scenarios, cpues,
 
     # JAP late
       else if(grid[row, "cpue"] == "jap") {
-        dat$CPUE <- cpues[, 1:5]
+        dat$CPUE <- cpue[, 1:5]
         # SET lambdas$value = 0.001 for all but c(13:16)
         ctl$lambdas[, "value"] <- 0.001
         ctl$lambdas[ctl$lambdas[,"fleet/survey"] %in% c(13:16), "value"] <- 1.000
@@ -132,7 +150,7 @@ setioswogrid <- function(scenarios, cpues,
 
     # TWN late + PT in SW
       else if(grid[row, "cpue"] == "twnpt") {
-        dat$CPUE <- subset(cpues , name != "UTWLL_SW" | year < 2000)[, 1:5]
+        dat$CPUE <- subset(cpue , name != 19 | year < 2000)[, 1:5]
         # SET lambdas$value = 0.001 for all but c(17:21)
         ctl$lambdas[, "value"] <- 0.001
         ctl$lambdas[ctl$lambdas[,"fleet/survey"] %in% c(17:21), "value"] <- 1.000

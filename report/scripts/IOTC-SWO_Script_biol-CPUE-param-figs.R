@@ -104,7 +104,8 @@ dev.off()
 
 #################
 ####  CPUEs
-load("C:/Users/rpcoelho/Dropbox/SWOIOTC/SWO/ioswomse/data/cpues.RData")
+library(ioswomse)
+data(cpues)
 head(cpues)
 summary(cpues)
 table(cpues$name)

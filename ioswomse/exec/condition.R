@@ -31,11 +31,7 @@ data(cpues)
 
 # -- SETUP grid/SS3 folders
 
-dir <- "test"
-
-grid <- setioswogrid(scenarios, cpues=cpues, dir=dir, write=TRUE)
-
-dirs <- paste(dir, grid$id, sep="/")
+grid <- setioswogrid(scenarios, cpues=cpues, dir=dir, write=FALSE)
 
 # -- RUN SS3 grid
 
@@ -44,15 +40,14 @@ runss3grid(grid, options="", dir=dir)
 # -- LOAD results
 
 # res
-res <- cbind(grid[,-9], loadres(dirs=dirs))
+res <- loadres(dir=dir, grid=grid)
 
-# rpts: MSY, SB_MSY, F_MSY, SB0
-rpts <- FLPar(MSY=res$TotYield_MSY, SBMSY=2 * res$SSB_MSY, FMSY=res$Fstd_MSY,
-  SB0=2 * res$SPB_1950, Ftarget=res$Fstd_MSY, SBlim=2 * 0.40*res$SSB_MSY)
+# refpts: MSY, SB_MSY, F_MSY, SB0
+refpts <- with(res, FLPar(MSY=TotYield_MSY, SBMSY=2 * SSB_MSY, FMSY=Fstd_MSY,
+  SB0=2 * SPB_1950, Ftarget=Fstd_MSY, SBlim=2 * 0.40 * SSB_MSY))
 
 # om
-om <- loadom(dirs=dirs)
-
+om <- loadom(dir=dir)
 range(om, c("minfbar", "maxfbar")) <- c(2,8)
 
 # sr (residuals)

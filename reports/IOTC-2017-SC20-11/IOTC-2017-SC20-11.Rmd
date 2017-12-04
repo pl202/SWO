@@ -198,7 +198,7 @@ Progress on the MSE work for swordfish will continue, with the limits imposed by
 - Finalize the OM grid by incorporating the alternative CPUE selectivity and M scenarios.
 - Carry out a detailed revision of the code generating the grid of SS3 models.
 - Compute an initial set of reference projections: constant catch and constant F.
-- Compare the levels of variability due to paramneter uncertainty, estimatred thorugh Markoc chain Monte Carlo (McMC) with those ariusing from structural uncertainty.
+- Compare the levels of variability due to parameter uncertainty, estimated through Markoc chain Monte Carlo (McMC) with those arising from structural uncertainty.
 
 Work on this MSE exercise is being carried out around a public source code repository, available at <https://github.com/iotcwpm/SWO>. As work progresses, instructions will be made available for interested parties to install the necessary R packages and explore the results.
 

@@ -12,9 +12,7 @@ setioswogrid(scenarios, cpues, dir = paste0("grid_", format(Sys.time(),
 Sets a grid of SS3 runs for the IOTC SWO OM
 }
 \examples{
-base <- '../inst/ext-data/sa/'
-name <- 'swo'
-from <- 1
-write <- TRUE
-
+# Simple example with a single parameter
+scenarios  <- list(steepness=0.7, 0.8)
+setioswogrid(scenarios, dir=tempdir())
 }

@@ -2,20 +2,20 @@
 # ioalbmse/R/grid.R
 
 # Copyright European Union, 2015-2016
-# Author: Iago Mosqueira (EC JRC) <iago.mosqueira@jrc.ec.europa.eu>
+# Author: Iago Mosqueira (EC JRC) <iago.mosqueira@ec.europa.eu>
 #
 # Distributed under the terms of the European Union Public Licence (EUPL) V.1.1.
+
+# setioswogrid {{{
 
 #' Sets a grid of SS3 runs for the IOTC SWO OM
 #'
 #' @name setioswogrid
 #' @examples
-#' base <- '../inst/ext-data/sa/'
-#' name <- 'swo'
-#' from <- 1
-#' write <- TRUE
-#'
-# setioswogrid {{{
+#' # Simple example with a single parameter
+#' scenarios  <- list(steepness=0.7, 0.8)
+#' setioswogrid(scenarios, dir=tempdir())
+
 setioswogrid <- function(scenarios, cpues,
   dir=paste0("grid_", format(Sys.time(), "%Y%m%d")),
   base=system.file("ext-data/sa", package="ioswomse"), name='swo', from=1,
@@ -39,10 +39,8 @@ setioswogrid <- function(scenarios, cpues,
   pars <- names(scenarios)
 
   # CREATE dir
-  if(dir.exists(dir))
-    stop(paste("folder", dir, "already exists. Delete first."))
-	
-  dir.create(dir)
+  if(!dir.exists(dir))
+    dir.create(dir)
 
 	# SETUP grid
   foreach (i=grid$number, .errorhandling = "remove") %dopar% {
@@ -52,13 +50,13 @@ setioswogrid <- function(scenarios, cpues,
 
     row <- which(grid$number == i)
  
-    # llsel TODO
+    # llsel
     if("llsel" %in% pars) {
-      if(grid[row, 'llsel'] == "DoNorm") {
+      if(grid[row, 'llsel'] == "Logistic") {
         # CHANGE fleet 3 (S) 
-        ctl$size_selex_parms[7:12, "INIT"] <- c(90, -0.50, 5.00, 6.00, -999, 0)
-      } else if(grid[row, 'llsel'] == "Logistic") {
-        ctl$size_selex_parms[7:12, "INIT"] <- c(90, -0.50, 5.00, 6.00, -999, 0)
+        ctl$size_selex_parms[10, ] <- c(-1,50,30,4,1,99,-3,0,0,0,0,0.5,0,0) 
+        ctl$size_selex_parms[11, ] <- c(-15,-5,-999,-1,1,99,-3,0,0,0,0,0.5,0,0) 
+        ctl$size_selex_parms[12, ] <- c(-5,9,-999,-1,1,99,-3,0,0,0,0,0.5,0,0) 
       }
     }
 
@@ -192,6 +190,6 @@ setioswogrid <- function(scenarios, cpues,
     # dat
     r4ss::SS_writedat(dat, outfile=paste0(dirname, "/", name, ".dat"))
 	}
-
 	invisible(grid)
 } # }}}
+

@@ -13,8 +13,13 @@
 #' @name setioswogrid
 #' @examples
 #' # Simple example with a single parameter
-#' scenarios  <- list(steepness=0.7, 0.8)
+#' scenarios  <- list(steepness=c(0.7, 0.8), M=c(0.2, 0.4))
+#'
+#' scenarios  <- list(steepness=c(0.7, 0.8), M=list(0.2, 0.4, lo=seq(0.2, 0.4, length=10)))
+#' scenarios  <- list(steepness=c(0.7, 0.8), M=c(0.2, 0.4, "lo"))
+#'
 #' setioswogrid(scenarios, dir=tempdir())
+#' list.dirs(path = tempdir(), recursive = TRUE)
 
 setioswogrid <- function(scenarios, cpues,
   dir=paste0("grid_", format(Sys.time(), "%Y%m%d")),
@@ -22,7 +27,8 @@ setioswogrid <- function(scenarios, cpues,
   write=TRUE) {
 	
   # EXPAND grid from sce
-	grid <- nameGrid(expand.grid(scenarios, stringsAsFactors=FALSE), from=from)
+  
+  grid <- nameGrid(expand.grid(scenarios, stringsAsFactors=FALSE), from=from)
 
   if(!write)
     return(grid)
@@ -32,7 +38,7 @@ setioswogrid <- function(scenarios, cpues,
   datf <- paste0(base, "/", name, ".dat")
  	
   # READ source files
-  dats <- r4ss::SS_readdat(datf, verbose=FALSE)
+  dats <- r4ss::SS_readdat_3.24(datf, verbose=FALSE)
   ctls <- r4ss::SS_readctl_3.24(file=ctlf, use_datlist=T, datlist=dats, verbose=FALSE)
 
   # NAMES in grid
@@ -53,7 +59,7 @@ setioswogrid <- function(scenarios, cpues,
     # llsel
     if("llsel" %in% pars) {
       if(grid[row, 'llsel'] == "Logistic") {
-        # CHANGE fleet 3 (S) 
+        # CHANGE fleet 3 (S), 3 last params
         ctl$size_selex_parms[10, ] <- c(-1,50,30,4,1,99,-3,0,0,0,0,0.5,0,0) 
         ctl$size_selex_parms[11, ] <- c(-15,-5,-999,-1,1,99,-3,0,0,0,0,0.5,0,0) 
         ctl$size_selex_parms[12, ] <- c(-5,9,-999,-1,1,99,-3,0,0,0,0,0.5,0,0) 
@@ -67,9 +73,12 @@ setioswogrid <- function(scenarios, cpues,
 
     # M
     if("M" %in% pars) {
-      if(ctl$natM_type == 0) {
-        ctl$MG_parms[1, c("INIT", "PRIOR")] <- grid[row, "M"]
-      }
+        if(grid[row, "M"] == 999) {
+          ctl$natM[1,] <- lorenzen$femM
+          ctl$natM[2,] <- lorenzen$malM
+        }
+        else
+          ctl$natM[1,] <- grid[row, "M"]
     }
 
     # Growth + maturity
@@ -113,18 +122,6 @@ setioswogrid <- function(scenarios, cpues,
 
       # GET object by name (flaky)
       cpue <- get(paste0("cpues_", grid[row, "scaling"]))
-
-      # data.table of dat$CPUE
-      # datcpue <- data.table(dat$CPUE)
-
-      # set keys for merge
-      # setkey(datcpue, year, seas, index)
-      # setkey(cpue, year, seas, index)
-
-      # MERGE
-      # datcpue[cpue, obs:=cpue$obs]
-
-      # dat$CPUE <- datcpue
     }
 
     # CPUEs
@@ -188,8 +185,7 @@ setioswogrid <- function(scenarios, cpues,
     r4ss::SS_writectl_3.24(ctl, paste0(dirname, "/", name, ".ctl"), nseas=ctl$nseas)
 		
     # dat
-    r4ss::SS_writedat(dat, outfile=paste0(dirname, "/", name, ".dat"))
+    r4ss::SS_writedat_3.24(dat, outfile=paste0(dirname, "/", name, ".dat"))
 	}
 	invisible(grid)
 } # }}}
-

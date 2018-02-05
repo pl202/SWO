@@ -31,8 +31,9 @@
 # begin and end years of blocks
 #
 0.5 #_fracfemale 
-0 #_natM_type:_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate
-  #_no additional input for selected M option; read 1P per morph
+3 #_natM_type:_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate
+0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2
+0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2
 1 # GrowthModel: 1=vonBert with L1&L2; 2=Richards with L1&L2; 3=not implemented; 4=not implemented
 0.01 #_Growth_Age_for_L1
 999 #_Growth_Age_for_L2 (999 to use as Linf)
@@ -53,7 +54,7 @@
 #
 #_growth_parms
 #_LO HI INIT PRIOR PR_type SD PHASE env-var use_dev dev_minyr dev_maxyr dev_stddev Block Block_Fxn
-  0.1 0.6 0.2 0.2 0 1 -8 0 0 0 0 0.5 0 0   # NatM_p_1_Fem_GP_1
+#  0.1 0.6 0.2 0.2 0 1 -8 0 0 0 0 0.5 0 0   # NatM_p_1_Fem_GP_1
 # xxx GtMf  0.1 0.6 0.25 0.25 0 1 -8 0 0 0 0 0.5 0 0 # NatM_p_1_Fem_GP_1
 # xxx GhMf  0.1 0.6 0.4 0.25 0 1 -8 0 0 0 0 0.5 0 0  # NatM_p_1_Fem_GP_1
 # xxx GrMf  0.1 0.6 0.4 0.25 0 1 -8 0 0 0 0 0.5 0 0  # NatM_p_1_Fem_GP_1
@@ -78,7 +79,7 @@
  0.05 0.25 0.15 0.15 0 0.15 -3 0 0 0 0 0.5 0 0 # CV_young_Fem_GP_1
  0.05 0.25 0.1 0.15 0 0.15 -3 0 0 0 0 0.5 0 0 # CV_old_Fem_GP_1
  
-  0.1 0.6 0.2 0.2 0 1 -8 0 0 0 0 0.5 0 0   # NatM_p_1_Mal_GP_1
+#  0.1 0.6 0.2 0.2 0 1 -8 0 0 0 0 0.5 0 0   # NatM_p_1_Mal_GP_1
 # xxx GtMf  0.1 0.6 0.25 0.25 0 1 -8 0 0 0 0 0.5 0 0 # NatM_p_1_Mal_GP_1
 # xxx GhMf  0.1 0.6 0.4 0.25 0 1 -8 0 0 0 0 0.5 0 0  # NatM_p_1_Mal_GP_1
 # xxx GrMf  0.1 0.6 0.4 0.25 0 1 -8 0 0 0 0 0.5 0 0  # NatM_p_1_Mal_GP_1

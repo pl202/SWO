@@ -16,20 +16,20 @@ registerDoParallel(3)
 
 scenarios <- list(
   # Natural mortality, M
-  M=c(0.2, 0.4),
+  M=c(0.2, 0.4, 999),
   # SR steepness
   steepness=c(0.6, 0.75, 0.9),
-  # 
+  # Rec variance
   sigmaR=c(0.2, 0.6),
-  #
+  # Weight of length samples
   ess=c(2, 20),
-  #
+  # Trends in LL catchability
   llq=c(1, 1.01),
-  #
+  # Growth + maturity
   growmat=c("farley", "wang"),
-  #
+  # CPUEs
   cpue=c("jappt", "jap", "twnpt"),
-  #
+  # Area CPUE scaling factor
   scaling=c("area", "catch", "biomass"))
 
 # --- DATA

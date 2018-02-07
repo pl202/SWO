@@ -85,7 +85,7 @@ setioswogrid <- function(scenarios, cpues,
     if("growmat" %in% pars) {
       if(grid[row, 'growmat'] == "farley") {
 
-        ctl$MG_parms[2:4,] <- rbind(
+        ctl$MG_parms[1:3,] <- rbind(
           # Farley Ray L_at_Amin_Fem_GP_1_
           c(70, 90, 83.22, 83.22, 0, 0.1, -2, 0, 0, 0, 0, 0, 0, 0),
           # Farley Ray Ray L_at_Amax_Fem_GP_1_
@@ -98,7 +98,7 @@ setioswogrid <- function(scenarios, cpues,
           0.98, 0.996, 0.999, rep(1, 21))
 
       } else if(grid[row, 'growmat'] == "wang") {
-        ctl$MG_parms[2:4,] <- rbind(
+        ctl$MG_parms[1:3,] <- rbind(
           # Wang IO L_at_Amin_Fem_GP_1
           c(70, 90, 66.2, 66.2, 0, 0.1, -2, 0, 0, 0, 0, 0.5, 0, 0),
           # Wang IO L_at_Amax_Fem_GP_1

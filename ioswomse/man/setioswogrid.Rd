@@ -13,6 +13,11 @@ Sets a grid of SS3 runs for the IOTC SWO OM
 }
 \examples{
 # Simple example with a single parameter
-scenarios  <- list(steepness=0.7, 0.8)
+scenarios  <- list(steepness=c(0.7, 0.8), M=c(0.2, 0.4))
+
+scenarios  <- list(steepness=c(0.7, 0.8), M=list(0.2, 0.4, lo=seq(0.2, 0.4, length=10)))
+scenarios  <- list(steepness=c(0.7, 0.8), M=c(0.2, 0.4, "lo"))
+
 setioswogrid(scenarios, dir=tempdir())
+list.dirs(path = tempdir(), recursive = TRUE)
 }

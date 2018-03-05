@@ -34,8 +34,8 @@ setioswogrid <- function(scenarios, cpues,
     return(grid)
 
   # SET ctl, dat full paths
-  ctlf <- paste0(base, "/", name, ".ctl")
-  datf <- paste0(base, "/", name, ".dat")
+  ctlf <- file.path(base, paste0(name, ".ctl"))
+  datf <- file.path(base, paste0(name, ".dat"))
  	
   # READ source files
   dats <- r4ss::SS_readdat_3.24(datf, verbose=FALSE)
@@ -85,15 +85,25 @@ setioswogrid <- function(scenarios, cpues,
     if("growmat" %in% pars) {
       if(grid[row, 'growmat'] == "farley") {
 
+        # Farley otolith female
         ctl$MG_parms[1:3,] <- rbind(
-          # Farley Ray L_at_Amin_Fem_GP_1_
-          c(70, 90, 83.22, 83.22, 0, 0.1, -2, 0, 0, 0, 0, 0, 0, 0),
-          # Farley Ray Ray L_at_Amax_Fem_GP_1_
-          c(300, 340, 308.0713, 308.0713, 0, 0.1, -2, 0, 0, 0, 0, 0, 0, 0),
-          # Farley Ray Ray VonBert_K_Fem_GP_1_
-          c(0.05, 0.2, 0.123, 0.123, 0, 0.1, -3, 0, 0, 0, 0, 0, 0, 0))
-
-        # Farley 2016 Otolith
+          # L_at_Amin_Fem_GP_1_
+          c(70, 90, 78.70, 78.70, 0, 0.1, -2, 0, 0, 0, 0, 0, 0, 0),
+          # L_at_Amax_Fem_GP_1_
+          c(310, 340, 275.8123, 275.8123, 0, 0.1, -2, 0, 0, 0, 0, 0, 0, 0),
+          # VonBert_K_Fem_GP_1_
+          c(0.05, 0.2, 0.157, 0.157, 0, 0.1, -3, 0, 0, 0, 0, 0, 0, 0))
+ 
+        # Farley otolith female
+        ctl$MG_parms[6:8,] <- rbind(
+          # L_at_Amin_Mal_GP_1_
+          c(70, 90, 83.57, 83.57, 0, 0.1, -2, 0, 0, 0, 0, 0, 0, 0),
+          # L_at_Amax_Mal_GP_1_
+          c(200, 280, 213.7675, 213.7675, 0, 0.1, -2, 0, 0, 0, 0, 0, 0, 0),
+          # VonBert_K_Mal_GP_1_
+          c(0.07, 0.30, 0.235, 0.235, 0, 0.1, -3, 0, 0, 0, 0, 0, 0, 0))
+        
+        # Farley otolith maturity
         ctl$Age_Maturity[] <- c(0.001, 0.006, 0.027, 0.109, 0.354, 0.711, 0.917,
           0.98, 0.996, 0.999, rep(1, 21))
 
@@ -106,6 +116,14 @@ setioswogrid <- function(scenarios, cpues,
           # Wang IO VonBert_K_Fem_GP_1
           c(0.05, 0.26, 0.138, 0.138, 0, 0.1, -3, 0, 0, 0, 0, 0.5, 0, 0))
 
+        ctl$MG_parms[6:8,] <- rbind(
+          # Wang IO L_at_Amin_Mal_GP_1
+          c(70, 90, 72.1, 72.1, 0, 0.1, -2, 0, 0, 0, 0, 0.5, 0, 0),
+          # Wang IO L_at_Amax_Mal_GP_1
+          c(230, 280, 234, 234, 0, 0.1, -2, 0, 0, 0, 0, 0.5, 0, 0),
+          # Wang IO VonBert_K_Mal_GP_1
+          c(0.26, 0.28, 0.169, 0.169, 0, 0.1, -3, 0, 0, 0, 0, 0.5, 0, 0))
+
         # TWN/Hawai'i Maturity 50% age 4
         ctl$Age_Maturity[] <- c(0, 0, 0, 0, 0.02, 0.1, 0.5, 0.9, 0.98,
             rep(1, 22))
@@ -115,6 +133,8 @@ setioswogrid <- function(scenarios, cpues,
     # ESS obs
     if("ess" %in% pars) {
       dat$lencomp$Nsamp <- grid[row, "ess"]
+      #_mult_by_lencomp_N
+      ctl$Variance_adjustments[4,] <- 1
     }
 	
     # CPUE scaling schemes

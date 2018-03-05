@@ -10,7 +10,7 @@ library(ioswomse)
 
 library(doParallel)
 # registerDoParallel(225)
-registerDoParallel(3)
+registerDoParallel(4)
 
 # --- SCENARIOS
 
@@ -35,12 +35,13 @@ scenarios <- list(
 # --- DATA
 
 data(cpues)
+data(lorenzen)
 
 # -- SETUP grid/SS3 folders
 
-dir <- paste0("grid_", format(Sys.time(), "%Y%m%d"))
+dir <- "grid"
 
-grid <- setioswogrid(scenarios, cpues=cpues, dir=dir, write=TRUE)
+grid <- setioswogrid(scenarios, cpues=cpues, dir=dir, base='./sa/', write=TRUE)
 
 # -- RUN SS3 grid
 
@@ -69,6 +70,8 @@ save(omf, res, file="out/omfull.RData", compress="xz")
 fqs <- metrics(omf)
 
 save(fqs, res, file="out/fqsfull.RData", compress="xz")
+
+# INSPECT results
 
 # om
 

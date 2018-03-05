@@ -1,8 +1,8 @@
 Package: ioswomse
 Title: Management Strategy Evaluation for the Indian Ocean Tuna Commission
     Swordfish Stock
-Version: 0.0.3.9001
-Date: 2018-02-07
+Version: 0.0.4
+Date: 2018-03-05
 Authors@R: person("Iago", "Mosqueira", email = "iago.mosqueira@ec.europa.eu",
   role = c("aut", "cre"))
 Description: Inputs and outputs of the work for the development of Management
@@ -11,15 +11,15 @@ Description: Inputs and outputs of the work for the development of Management
     both. Work carried out under the auspicies of the Working Party on Methods of
     the Indian Ocean Tuna Commission.
 Depends:
-    R (>= 3.3.2),
-    FLCore (>= 2.6.5),
+    R (>= 3.4.1),
+    FLCore (>= 2.6.6),
     FLFishery,
     ss3om
 Imports:
     methods,
     foreach,
     data.table,
-    r4ss (>= 1.27.0),
+    r4ss (>= 1.29.0),
 Additional_repositories: http://flr-project.org/R
 Suggests:
     doParallel,

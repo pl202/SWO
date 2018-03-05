@@ -41,6 +41,9 @@ setioswogrid <- function(scenarios, cpues,
   dats <- r4ss::SS_readdat_3.24(datf, verbose=FALSE)
   ctls <- r4ss::SS_readctl_3.24(file=ctlf, use_datlist=T, datlist=dats, verbose=FALSE)
 
+  # DEFAULT cpue
+  cpue <- cpues_orig
+
   # NAMES in grid
   pars <- names(scenarios)
 
@@ -132,14 +135,12 @@ setioswogrid <- function(scenarios, cpues,
 
     # ESS obs
     if("ess" %in% pars) {
-      dat$lencomp$Nsamp <- grid[row, "ess"]
       #_mult_by_lencomp_N
-      ctl$Variance_adjustments[4,] <- 1
+      ctl$Variance_adjustments[4,] <- grid[row, "ess"] / 200
     }
-	
+
     # CPUE scaling schemes
     if("scaling" %in% pars) {
-
       # GET object by name (flaky)
       cpue <- get(paste0("cpues_", grid[row, "scaling"]))
     }
@@ -153,6 +154,9 @@ setioswogrid <- function(scenarios, cpues,
         # SET lambdas$value = 0.001 for all but c(13:16,21)
         ctl$lambdas[, "value"] <- 0.001
         ctl$lambdas[ctl$lambdas[,"fleet/survey"] %in% c(13:16,21), "value"] <- 1.000
+        # SET Q_setup for UTW_JP
+        ctl$Q_setup[, "Q_type"] <- 2
+        ctl$Q_setup[14:16,"Q_type"] <- -13
       }
 
     # JAP late
@@ -161,6 +165,9 @@ setioswogrid <- function(scenarios, cpues,
         # SET lambdas$value = 0.001 for all but c(13:16)
         ctl$lambdas[, "value"] <- 0.001
         ctl$lambdas[ctl$lambdas[,"fleet/survey"] %in% c(13:16), "value"] <- 1.000
+        # SET Q_setup for UTW_JP
+        ctl$Q_setup[, "Q_type"] <- 2
+        ctl$Q_setup[14:16,"Q_type"] <- -13
       }
 
     # TWN late + PT in SW
@@ -169,6 +176,9 @@ setioswogrid <- function(scenarios, cpues,
         # SET lambdas$value = 0.001 for all but c(17:21)
         ctl$lambdas[, "value"] <- 0.001
         ctl$lambdas[ctl$lambdas[,"fleet/survey"] %in% c(17:21), "value"] <- 1.000
+        # SET Q_setup for UTW_LL
+        ctl$Q_setup[, "Q_type"] <- 2
+        ctl$Q_setup[18:20,"Q_type"] <- -17
       }
 
       dat$N_cpue <- nrow(dat$CPUE)

@@ -1,7 +1,7 @@
 # condition.R - DESC
-# ioalbmse/exec/condition.R
+# ioswomse/exec/condition.R
 
-# Copyright European Union, 2016
+# Copyright European Union, 2018
 # Author: Iago Mosqueira (EC JRC) <iago.mosqueira@ec.europa.eu>
 #
 # Distributed under the terms of the European Union Public Licence (EUPL) V.1.1.
@@ -9,8 +9,8 @@
 library(ioswomse)
 
 library(doParallel)
-# registerDoParallel(225)
 registerDoParallel(4)
+registerDoParallel(200)
 
 # --- SCENARIOS
 
@@ -41,21 +41,21 @@ data(lorenzen)
 
 dir <- "grid"
 
-grid <- setioswogrid(scenarios, cpues=cpues, dir=dir, base='./sa/', write=TRUE)
+grid <- setioswogrid(scenarios, cpues=cpues, dir=dir, base='./sa/', write=FALSE)
 
 # -- RUN SS3 grid
-
+# $ parallel --jobs 200 --progress 'cd {} && ss3' ::: *
 runss3grid(grid, options="", dir=dir, pack=TRUE)
 
 # -- LOAD results
 
 # res
-res <- loadres(dir=dir, repfile = "Report.sso.gz",
-  covarfile = "covar.sso.gz", grid=grid)
+res <- loadres(dir=dir, repfile = "Report.sso",
+  covarfile = "covar.sso", grid=grid)
 
 # omfull
-omf <- loadomDT(dir=dir, repfile = "Report.sso.gz", covarfile = "covar.sso.gz",
-  compfile="CompReport.sso.gz")
+omf <- loadomDT(dir=dir, repfile = "Report.sso", covarfile = "covar.sso",
+  compfile="CompReport.sso")
 
 # SET range of ages fully selected
 range(omf, c("minfbar", "maxfbar")) <- c(2,8)
@@ -70,6 +70,7 @@ save(omf, res, file="out/omfull.RData", compress="xz")
 fqs <- metrics(omf)
 
 save(fqs, res, file="out/fqsfull.RData", compress="xz")
+
 
 # INSPECT results
 
@@ -91,7 +92,7 @@ om <- simplify(om, c("area", "unit"))
 
 # BUG Should readFLSss3 take care of this?
 landings.wt(om)[1,] <- stock.wt(om)[1,]
-discards.wt(om) <- landings.wt(om)
+discards.wt(om) <- landings.wt(om)[,,,,,1]
 
 # MERGE ages 21-31 in plusgroup
 om <- setPlusGroup(om, 20)
@@ -101,12 +102,21 @@ refpts <- with(res[idx,], FLPar(MSY=TotYield_MSY, SBMSY=2 * SSB_MSY, FMSY=Fstd_M
   SB0=2 * SPB_1950, Ftarget=Fstd_MSY, SBlim=2 * 0.40 * SSB_MSY))
 
 # sr
-resid <- loadquants(dir=dir, object="resid", repfile = "Report.sso.gz",
-  covarfile = "covar.sso.gz", compfile="CompReport.sso.gz")
+resid <- loadquants(subdirs=file.path("grid", grid$id[idx]), object="resid",
+  repfile = "Report.sso", covarfile = "covar.sso", compfile="CompReport.sso")
 
 osr <- predictModel(model="bevholtss3",
   params=with(res[idx,], FLPar(s=steepness, R0=exp(`SR_LN(R0)`), v=SPB_1950,
-    units=c("", "1000", "t"))),
-  FLQuants(residuals=resid[, ac(1975:2013),,,,idx]))
+    units=c("", "1000", "t"))), FLQuants(residuals=resid[, ac(1975:2013)]))
 
-save(om, refpts, osr, file='out/om.RData', compress='xz')
+units(harvest.spwn(om)) <- ""
+units(m.spwn(om)) <- ""
+
+res <- res[idx,]
+
+save(om, refpts, osr, res, file='out/om.RData', compress='xz')
+
+# fqs
+fqs <- metrics(om)
+
+save(fqs, file="out/fqs.RData", compress="xz")
